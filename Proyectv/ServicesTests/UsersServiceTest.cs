@@ -86,11 +86,6 @@ namespace ServicesTests
              userService.DeleteUser(user);
              Assert.Throws<UserNotFoundException>(() => userService.GetUserByName(user.UserName));
          }
-
-         [Test]
-         public void TestVerifiesIfTheUserIsModified()
-         {
-             
-         }
+         
     }
 }
