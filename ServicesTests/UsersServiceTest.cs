@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Data.Interfaces;
 using Entity;
 using Entity.Exceptions;
@@ -18,22 +19,27 @@ namespace ServicesTests
             Users = new List<User>();
         }
 
-        public void SaveUser(User user)
+        public async Task Save(User user)
         {
             Users.Add(user);
         }
 
-        public void DeleteUser(User user)
+        public async Task Delete(User user)
         {
             Users.Remove(user);
         }
 
-        public void UpdateUser(User user)
+        public async Task Update(User user)
         {
             throw new System.NotImplementedException();
         }
 
-        public User GetUserByName(string userName)
+        public async Task<List<User>> GetAll()
+        {
+            return Users;
+        }
+
+        public async Task<User> GetUserByName(string userName)
         {
             try
             {
@@ -44,20 +50,18 @@ namespace ServicesTests
                 throw new UserNotFoundException("No se encontro el usuario", e);
             }
         }
-
-
     }
 
 
     public class UsersServiceTest
     {
         [Test]
-        public void TestThatVerifiesIfTheUserIsSaved()
+        public async Task TestThatVerifiesIfTheUserIsSaved()
         {
             User user = new("Pipe", "pipeELpropiokubernetes@gmail.com", "1234", "devops");
             UsersService userService = new(new FakeUserRepository());
-            userService.SaveUser(user);
-            User userFound = userService.GetUserByName(user.UserName);
+            await userService.SaveUser(user);
+            User userFound = await userService.GetUserByName(user.UserName);
             Assert.AreEqual(user, userFound);
         }
 
@@ -65,27 +69,26 @@ namespace ServicesTests
         public void TestThatVerifiesIfUserIsNotFound()
         {
             UsersService userService = new(new FakeUserRepository());
-            Assert.Throws<UserNotFoundException>(() => userService.GetUserByName("Pipe"));
+            Assert.ThrowsAsync<UserNotFoundException>(async () => await userService.GetUserByName("Pipe"));
         }
 
         [Test]
-        public void TestThatVerifiesIfUserAlreadyExists()
+        public async Task TestThatVerifiesIfUserAlreadyExists()
         {
             User user = new("Pipe", "pipeELpropiokubernetes@gmail.com", "1234", "devops");
             UsersService userService = new(new FakeUserRepository());
-            userService.SaveUser(user);
-            Assert.Throws<UserAlreadyExistsException>(() => userService.SaveUser(user));
+            await userService.SaveUser(user);
+            Assert.ThrowsAsync<UserAlreadyExistsException>(async () => await userService.SaveUser(user));
         }
 
-         [Test]
-         public void TestThatVerifiesIfTheUserIsDeleted()
-         {
-             UsersService userService = new(new FakeUserRepository());
-             User user = new("Pipe", "pipeELpropiokubernetes@gmail.com", "1234", "devops");
-             userService.SaveUser(user);
-             userService.DeleteUser(user);
-             Assert.Throws<UserNotFoundException>(() => userService.GetUserByName(user.UserName));
-         }
-         
+        [Test]
+        public async Task TestThatVerifiesIfTheUserIsDeleted()
+        {
+            UsersService userService = new(new FakeUserRepository());
+            User user = new("Pipe", "pipeELpropiokubernetes@gmail.com", "1234", "devops");
+            await userService.SaveUser(user);
+            await userService.DeleteUser(user);
+            Assert.ThrowsAsync<UserNotFoundException>(async () => await userService.GetUserByName(user.UserName));
+        }
     }
 }

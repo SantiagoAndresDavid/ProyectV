@@ -15,24 +15,24 @@ namespace Services
             _usersRepository = usersRepository;
         }
 
-        public void SaveUser(User user)
+        public async Task SaveUser(User user)
         {
             try
             {
-                GetUserByName(user.UserName);
+                await GetUserByName(user.UserName);
             }
             catch (UserNotFoundException)
             {
-                _usersRepository.Save(user);
+                await _usersRepository.Save(user);
                 return;
             }
 
             throw new UserAlreadyExistsException("El usuario ya existe");
         }
 
-        public void DeleteUser(User user)
+        public async Task DeleteUser(User user)
         {
-            _usersRepository.Delete(user);
+            await _usersRepository.Delete(user);
         }
 
         public async Task<User> GetUserByName(string userName)
