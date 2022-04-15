@@ -31,7 +31,8 @@ namespace ServicesTests
 
         public async Task Update(User user)
         {
-            throw new System.NotImplementedException();
+            Users.Remove(Users.First(u => u.UserName == user.UserName));
+            Users.Add(user);
         }
 
         public async Task<List<User>> GetAll()
@@ -90,5 +91,30 @@ namespace ServicesTests
             await userService.DeleteUser(user);
             Assert.ThrowsAsync<UserNotFoundException>(async () => await userService.GetUserByName(user.UserName));
         }
+
+        [Test]
+        public async Task TestThatVerifiesIfTheUserIsUpdated()
+        {
+            UsersService userService = new(new FakeUserRepository());
+            User user = new("Pipe", "a", "1234", "devops");
+            User userModify = new("Pipe", "pipoELpropiokubernetes@gmail.com", "1234", "devops");
+            await userService.SaveUser(user);
+            await userService.UpdateUser(userModify);
+            Assert.AreEqual(userModify,await userService.GetUserByName("Pipe"));
+        }
+
+        [Test]
+        public async Task TestThatVerifiesThatUsersAreReturned()
+        {
+            UsersService userService = new(new FakeUserRepository());
+            User user = new("Pipe", "a", "1234", "devops");
+            User user2 = new("carlos", "pipoELpropiokubernetes@gmail.com", "1234", "devops");
+            await userService.SaveUser(user);
+            await userService.SaveUser(user2);
+            List<User> usersTest = new[]{user,user2}.ToList();
+            Assert.AreEqual(usersTest,await userService.GetAll());
+
+        }
+        
     }
 }

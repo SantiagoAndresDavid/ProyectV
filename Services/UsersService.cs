@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Data.Interfaces;
 using Entity;
 using Entity.Exceptions;
@@ -39,5 +40,17 @@ namespace Services
         {
             return await _usersRepository.GetUserByName(userName);
         }
+
+        public async Task UpdateUser(User userModify)
+        {
+            await _usersRepository.Update(userModify);
+        }
+
+        public async Task<List<User>> GetAll()
+        {
+            return await _usersRepository.GetAll();
+        }
+        
+        
     }
 }
