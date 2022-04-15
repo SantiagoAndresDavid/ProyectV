@@ -1,21 +1,10 @@
-﻿
+﻿using System.Threading.Tasks;
 using Entity;
 
 namespace Data.Interfaces
 {
-    public interface IUsersRepository
+    public interface IUsersRepository : IRepository<User>
     {
-
-        public void SaveUser(User user);
-
-
-        public void DeleteUser(User user);
-
-
-        public void UpdateUser(User user);
-
-
-        public User GetUserByName(string userName);
-        
+        public Task<User> GetUserByName(string userName);
     }
 }

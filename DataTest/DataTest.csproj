@@ -6,12 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Entity\Entity.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Hackedb" Version="0.0.3" />
-    </ItemGroup>
-
 </Project>

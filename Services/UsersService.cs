@@ -1,4 +1,4 @@
-﻿
+﻿using System.Threading.Tasks;
 using Data.Interfaces;
 using Entity;
 using Entity.Exceptions;
@@ -23,20 +23,21 @@ namespace Services
             }
             catch (UserNotFoundException)
             {
-                _usersRepository.SaveUser(user);
+                _usersRepository.Save(user);
                 return;
             }
+
             throw new UserAlreadyExistsException("El usuario ya existe");
         }
 
         public void DeleteUser(User user)
         {
-            _usersRepository.DeleteUser(user);
+            _usersRepository.Delete(user);
         }
 
-        public User GetUserByName(string userName)
+        public async Task<User> GetUserByName(string userName)
         {
-            return _usersRepository.GetUserByName(userName);
+            return await _usersRepository.GetUserByName(userName);
         }
     }
 }

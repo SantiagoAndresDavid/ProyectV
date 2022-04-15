@@ -1,56 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Data.Interfaces;
 using Entity;
 using Entity.Exceptions;
+using Hackedb;
+using Hackedb.Contracts;
 
 
 namespace Data
 {
-    public class UsersRepository : IUsersRepository
+    public class UsersRepository : Repository<User>, IUsersRepository
     {
-        
         private List<User> Users { get; }
 
-        public UsersRepository()
+
+        public UsersRepository(IDbChannel dbChannel) : base(dbChannel)
         {
             Users = new List<User>();
         }
 
-        public void SaveUser(User user)
+        public async Task Save(User user)
         {
-            Users.Add(user);
+            var query = "INTO usuarios " +
+                        "(nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario) " +
+                        "VALUES (@0, @1, @2, @3)";
+            await Insert(query, user.UserName, user.UserEmail, user.Password, user.Role);
         }
 
-        public void DeleteUser(User user)
+        public async Task Delete(User user)
         {
-            throw new System.NotImplementedException();
+            var query = "FROM usuarios WHERE nombre_usuario = @0";
+            await Delete(query, user.UserName);
         }
 
-        public void UpdateUser(User user)
+        public async Task Update(User user)
         {
-            throw new System.NotImplementedException();
+            var query = "usuarios SET " +
+                        "nombre_usuario = @0, correo_usuario = @1, contrasena_usuario = @2, rol_usuario = @3 " +
+                        "WHERE nombre_usuario = @0";
+            await Update(query, user.UserName, user.UserEmail, user.Password, user.Role);
         }
 
-        public User GetUserByName(string userName)
+        public async Task<List<User>> GetAll()
+        {
+            return (await Select("* FROM usuarios")).ToList();
+        }
+
+        public async Task<User> GetUserByName(string userName)
         {
             {
                 try
                 {
-                    return Users.First(user => user.UserName == userName);
+                    return (await Select("* FROM usuarios WHERE nombre_usuario = @0", userName)).First();
                 }
                 catch (InvalidOperationException e)
                 {
-                    throw new UserNotFoundException("No se encontro el usuario",e);
+                    throw new UserNotFoundException("No se encontro el usuario", e);
                 }
             }
         }
 
-        public string VerifyUserName(User user)
+        protected override User DefaultMap(IDataRecord record)
         {
-            throw new System.NotImplementedException();
-        } 
-        
+            return new User
+            {
+                UserName = record.GetString(0),
+                UserEmail = record.GetString(1),
+                Password = record.GetString(2),
+                Role = record.GetString(3)
+            };
+        }
     }
 }
