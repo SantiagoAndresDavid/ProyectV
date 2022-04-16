@@ -10,5 +10,5 @@ The project is focused on the information management of a transport company, tak
 
 ## Herramientas 
 [![PostgreSQL](https://img.shields.io/static/v1?label=PostgreSql&message=v14.2&style=for-the-badge&logo=postgresql&labelColor=ffffff&color=000000)](https://PostgreSQL.org/)
-[![Heroku](https://img.shields.io/static/v1?label=Heroku&message=v7.59.4&style=for-the-badge&logo=heroku&labelColor=800080&color=000000)](https://gradle.org/)
-[![csharp](https://img.shields.io/static/v1?label=csharp&message=v6&style=for-the-badge&logo=csharp&labelColor=22272E&color=000000)](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+[![Heroku](https://img.shields.io/static/v1?label=Heroku&message=v7.59.4&style=for-the-badge&logo=heroku&labelColor=800080&color=000000)](https://www.heroku.com/)
+[![.NET](https://img.shields.io/static/v1?label=dotnet&message=v6&style=for-the-badge&logo=dotnet&labelColor=22272E&color=000000)](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
