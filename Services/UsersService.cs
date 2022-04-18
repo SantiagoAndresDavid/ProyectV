@@ -8,7 +8,7 @@ using Entity.Exceptions;
 namespace Services
 {
     public class UsersService
-    {
+    { 
         private readonly IUsersRepository _usersRepository;
 
         public UsersService(IUsersRepository usersRepository)
@@ -22,13 +22,13 @@ namespace Services
             {
                 await GetUserByName(user.UserName);
             }
-            catch (UserNotFoundException)
+            catch (NotFoundException)
             {
                 await _usersRepository.Save(user);
                 return;
             }
 
-            throw new UserAlreadyExistsException("El usuario ya existe");
+            throw new AlreadyExistsException("El usuario ya existe");
         }
 
         public async Task DeleteUser(User user)

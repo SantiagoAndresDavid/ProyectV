@@ -1,20 +1,11 @@
-﻿using Entity;
+﻿using System.Threading.Tasks;
+using Entity;
 
 namespace Data.Interfaces
 {
-    public interface ICarRepository
+    public interface ICarRepository : IRepository<Car>
     {
-
-        public void SaveCar(Car car);
-
-
-        public void DeleteCar(Car car);
-
-
-        public void UpdateUser(Car car);
-
-
-        public User GetUserByName(string userName);
+        public Task<Car> GetCarByID(string IdCar);
         
     }
-}
+} 

@@ -15,8 +15,6 @@ namespace Data
     public class UsersRepository : Repository<User>, IUsersRepository
     {
         private List<User> Users { get; }
-
-
         public UsersRepository(IDbChannel dbChannel) : base(dbChannel)
         {
             Users = new List<User>();
@@ -51,15 +49,13 @@ namespace Data
 
         public async Task<User> GetUserByName(string userName)
         {
+            try
             {
-                try
-                {
-                    return (await Select("* FROM usuarios WHERE nombre_usuario = @0", userName)).First();
-                }
-                catch (InvalidOperationException e)
-                {
-                    throw new UserNotFoundException("No se encontro el usuario", e);
-                }
+                return (await Select("* FROM usuarios WHERE nombre_usuario = @0", userName)).First();
+            }
+            catch (InvalidOperationException e)
+            {
+                throw new NotFoundException("No se encontro el usuario", e);
             }
         }
 

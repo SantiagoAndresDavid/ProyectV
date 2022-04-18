@@ -48,7 +48,7 @@ namespace ServicesTests
             }
             catch (InvalidOperationException e)
             {
-                throw new UserNotFoundException("No se encontro el usuario", e);
+                throw new NotFoundException("No se encontro el usuario", e);
             }
         }
     }
@@ -70,7 +70,7 @@ namespace ServicesTests
         public void TestThatVerifiesIfUserIsNotFound()
         {
             UsersService userService = new(new FakeUserRepository());
-            Assert.ThrowsAsync<UserNotFoundException>(async () => await userService.GetUserByName("Pipe"));
+            Assert.ThrowsAsync<NotFoundException>(async () => await userService.GetUserByName("Pipe"));
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace ServicesTests
             User user = new("Pipe", "pipeELpropiokubernetes@gmail.com", "1234", "devops");
             UsersService userService = new(new FakeUserRepository());
             await userService.SaveUser(user);
-            Assert.ThrowsAsync<UserAlreadyExistsException>(async () => await userService.SaveUser(user));
+            Assert.ThrowsAsync<AlreadyExistsException>(async () => await userService.SaveUser(user));
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace ServicesTests
             User user = new("Pipe", "pipeELpropiokubernetes@gmail.com", "1234", "devops");
             await userService.SaveUser(user);
             await userService.DeleteUser(user);
-            Assert.ThrowsAsync<UserNotFoundException>(async () => await userService.GetUserByName(user.UserName));
+            Assert.ThrowsAsync<NotFoundException>(async () => await userService.GetUserByName(user.UserName));
         }
 
         [Test]
