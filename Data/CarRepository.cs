@@ -30,7 +30,7 @@ namespace Data
             await Insert(query, car.LicensePlate, car.Model, car.Colour, car.Id, car.NumSeating);
         }
 
-        public async Task Delete(Car car) 
+        public async Task Delete(Car car)
         {
             var query = "FROM carros WHERE id = @0";
             await Delete(query, car.Id);
@@ -38,7 +38,7 @@ namespace Data
 
         public async Task Update(Car car)
         {
-            var query = "carros SET"+
+            var query = "carros SET" +
                         "Id = @0, palca = @1, modelo = @2, color = @3, num_asientos = @4 ";
             await Update(query, car.Id, car.Model, car.Colour, car.NumSeating);
         }
@@ -48,15 +48,15 @@ namespace Data
             return (await Select("* FROM carros")).ToList();
         }
 
-        public async Task<Car> GetCarByID(string idCar)
+        public async Task<Car> GetCarById(string idCar)
         {
             try
             {
-                return (await Select("* FROM carros WHERE id = @0", idCar)).First();
+                return (await Select("* FROM usuarios WHERE nombre_usuario = @0", idCar)).First();
             }
             catch (InvalidOperationException e)
             {
-                throw new NotFoundException("No se encontro el Vehiculo",e);
+                throw new NotFoundException("No se encontro el usuario", e);
             }
         }
 

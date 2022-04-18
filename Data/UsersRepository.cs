@@ -15,6 +15,7 @@ namespace Data
     public class UsersRepository : Repository<User>, IUsersRepository
     {
         private List<User> Users { get; }
+
         public UsersRepository(IDbChannel dbChannel) : base(dbChannel)
         {
             Users = new List<User>();

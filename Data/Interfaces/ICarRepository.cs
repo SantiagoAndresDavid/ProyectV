@@ -5,7 +5,6 @@ namespace Data.Interfaces
 {
     public interface ICarRepository : IRepository<Car>
     {
-        public Task<Car> GetCarByID(string IdCar);
-        
+        public Task<Car> GetCarById(string idCar);
     }
-} 
+}
