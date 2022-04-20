@@ -48,7 +48,7 @@ namespace Services
 
         public async Task<Car> GetCarById(string id)
         {
-           return await _carRepository.GetCarById(id);
+            return await _carRepository.GetCarById(id);
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Data.Interfaces;
 using Entity;
+using Entity.Exceptions;
 using NUnit.Framework;
 using Services;
 
@@ -11,35 +14,67 @@ namespace ServicesTests
 
     public class FakeCarRepository : ICarRepository
     {
-        public Task Save(Car entity)
+        private List<Car> Cars { get; }
+
+        public FakeCarRepository()
         {
-            throw new System.NotImplementedException();
+            Cars = new List<Car>();
         }
 
-        public Task Delete(Car entity)
+
+        public async Task Save(Car car)
         {
-            throw new System.NotImplementedException();
+            Cars.Add(car);
         }
 
-        public Task Update(Car entity)
+        public async Task Delete(Car car)
         {
-            throw new System.NotImplementedException();
+            Cars.Remove(car);
         }
 
-        public Task<List<Car>> GetAll()
+        public async Task Update(Car car)
         {
-            throw new System.NotImplementedException();
+            Cars.Remove(Cars.First(c => c.Id == car.Id));
+            Cars.Add(car);
         }
 
-        public Task<Car> GetCarById(string idCar)
+        public async Task<List<Car>> GetAll()
         {
-            throw new System.NotImplementedException();
+            return Cars;
+        }
+
+        public async Task<Car> GetCarById(string idCar)
+        {
+            try
+            {
+                return Cars.First(c => c.Id == idCar);
+            }
+            catch (InvalidOperationException e)
+            {
+                throw new NotFoundException("No se encontro el vehiculo",e);
+            }
         }
         
         
     }
     public class CarServicesTest
     {
+        [Test]
+        public async Task TestThatVerifiesIfTheCarIsSaved()
+        {
+            Car car = new Car("","","","",2);
+            CarServices carServices = new(new FakeCarRepository());
+            await carServices.SaveCar(car);
+            Car carFound = await carServices.GetCarById(car.Id);
+            Assert.AreEqual(car, carFound);
+        }
 
+        [Test]
+        public void TestThatVerifiesIfCarIsNotFound()
+        {
+            CarServices carServices = new(new FakeCarRepository());
+            Assert.ThrowsAsync<NotFoundException>(() => carServices.GetCarById("123"));
+        }
+        
     }
 }
