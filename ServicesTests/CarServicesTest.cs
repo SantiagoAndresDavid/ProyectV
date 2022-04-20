@@ -95,6 +95,19 @@ namespace ServicesTests
             await carServices.DeleteCar(car);
             Assert.ThrowsAsync<NotFoundException>(async () => await carServices.GetCarById("121-asda"));
         }
+
+        [Test]
+        public async Task TestThatVerifiesIfTheCarIsUpdated()
+        {
+            CarServices carServices = new(new FakeCarRepository());
+            Car car = new Car("1234", "aprimal", "amarillo", "121-asda", 2);
+            Car car2 = new Car("9999", "asasdasd", "azul", "121-gdfg", 4);
+            await carServices.SaveCar(car);
+            await carServices.SaveCar(car2);
+            List<Car> carTest = new []{car,car2}.ToList();
+            Assert.AreEqual(carTest,await carServices.GetAll());
+        }
+        
         
     }
 }
