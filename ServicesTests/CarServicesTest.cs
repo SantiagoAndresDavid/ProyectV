@@ -62,7 +62,7 @@ namespace ServicesTests
         [Test]
         public async Task TestThatVerifiesIfTheCarIsSaved()
         {
-            Car car = new Car("","","","",2);
+            Car car = new Car("1234","aprimal","amarillo","121-asda",2);
             CarServices carServices = new(new FakeCarRepository());
             await carServices.SaveCar(car);
             Car carFound = await carServices.GetCarById(car.Id);
@@ -75,6 +75,18 @@ namespace ServicesTests
             CarServices carServices = new(new FakeCarRepository());
             Assert.ThrowsAsync<NotFoundException>(() => carServices.GetCarById("123"));
         }
+
+
+        [Test]
+        public async Task TestThatVerifiesIfCarAlreadyExists()
+        {
+            Car car = new Car("1234","aprimal","amarillo","121-asda",2);
+            CarServices carServices = new(new FakeCarRepository());
+            await carServices.SaveCar(car);
+            Assert.ThrowsAsync<AlreadyExistsException>(() => carServices.SaveCar(car));
+        }
+        
+        
         
     }
 }
