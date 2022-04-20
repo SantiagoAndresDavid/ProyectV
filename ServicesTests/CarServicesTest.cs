@@ -85,8 +85,16 @@ namespace ServicesTests
             await carServices.SaveCar(car);
             Assert.ThrowsAsync<AlreadyExistsException>(() => carServices.SaveCar(car));
         }
-        
-        
+
+        [Test]
+        public async Task TestThatVerifiesIfTheCarIsDeleted()
+        {
+            CarServices carServices = new(new FakeCarRepository());
+            Car car = new Car("1234","aprimal","amarillo","121-asda",2);
+            await carServices.SaveCar(car);
+            await carServices.DeleteCar(car);
+            Assert.ThrowsAsync<NotFoundException>(async () => await carServices.GetCarById("121-asda"));
+        }
         
     }
 }
