@@ -2,14 +2,15 @@
 {
     public class Driver
     {
-        public string FirstName { get; }
-        public string SecondName { get; }
-        public string Surname { get; }
-        public int DocumentId { get; }
-        public int IdLicenceDriver { get; }
-        public string Photo { get; }
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
+        public string Surname { get; set; }
+        public int DocumentId { get; set; }
+        public int IdLicenceDriver { get; set; }
+        public string Photo { get; set; }
 
-        public Driver(string firstName, string secondName, string surname, int documentId, int idLicenceDriver, string photo)
+        public Driver(string firstName, string secondName, string surname, int documentId, int idLicenceDriver,
+            string photo)
         {
             FirstName = firstName;
             SecondName = secondName;
@@ -17,6 +18,10 @@
             DocumentId = documentId;
             IdLicenceDriver = idLicenceDriver;
             Photo = photo;
+        }
+
+        public Driver()
+        {
         }
     }
 }

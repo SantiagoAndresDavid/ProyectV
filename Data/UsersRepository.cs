@@ -23,23 +23,23 @@ namespace Data
 
         public async Task Save(User user)
         {
-            var query = "INTO usuarios " +
-                        "(nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario) " +
-                        "VALUES (@0, @1, @2, @3)";
+            const string query = "INTO usuarios " +
+                                 "(nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario) " +
+                                 "VALUES (@0, @1, @2, @3)";
             await Insert(query, user.UserName, user.UserEmail, user.Password, user.Role);
         }
 
         public async Task Delete(User user)
         {
-            var query = "FROM usuarios WHERE nombre_usuario = @0";
+            const string query = "FROM usuarios WHERE nombre_usuario = @0";
             await Delete(query, user.UserName);
         }
 
         public async Task Update(User user)
         {
-            var query = "usuarios SET " +
-                        "nombre_usuario = @0, correo_usuario = @1, contrasena_usuario = @2, rol_usuario = @3 " +
-                        "WHERE nombre_usuario = @0";
+            const string query = "usuarios SET " +
+                                  "nombre_usuario = @0, correo_usuario = @1, contrasena_usuario = @2, rol_usuario = @3 " +
+                                  "WHERE nombre_usuario = @0";
             await Update(query, user.UserName, user.UserEmail, user.Password, user.Role);
         }
 
