@@ -113,7 +113,6 @@ namespace ServicesTests
             await userService.SaveUser(user2);
             List<User> usersTest = new[]{user,user2}.ToList();
             Assert.AreEqual(usersTest,await userService.GetAll());
-
         }
         
     }
