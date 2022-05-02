@@ -2,15 +2,22 @@
 {
     public class Trip
     {
-        int NumberPassengers { get; }
-        Driver driver { get; }
-        Car car { get; }
+        public Guid IdTrip { get; set; }
+        public int NumberPassengers { get; set; }
+        public Driver Driver { get; set; }
+        public Car Car { get; set; }
 
-        public Trip(int numberPassengers, Driver driver, Car car)
+
+        public Trip(Guid idTrip, int numberPassengers, Driver driver, Car car)
         {
+            IdTrip = idTrip;
             NumberPassengers = numberPassengers;
-            this.driver = driver;
-            this.car = car;
+            Driver = driver;
+            Car = car;
+        }
+
+        public Trip()
+        {
         }
     }
 }

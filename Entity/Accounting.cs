@@ -4,19 +4,28 @@ namespace Entity
 {
     public class Accounting
     {
-        public DateTime Date { get; }
-        public AdminstrativeStaff AdminstrativeStaff { get; }
-        public Car car { get; }
-        public Driver driver { get; }
-        public int earnedMoney { get; }
+        public DateTime Date { get; set; }
+        public AdminstrativeStaff AdminstrativeStaff { get; set; }
+        public Car car { get; set; }
+        public Driver driver { get; set; }
+        public int earnedMoney { get; set; }
 
-        public Accounting(DateTime date, AdminstrativeStaff adminstrativeStaff, Car car, Driver driver, int earnedMoney)
+        public Trip trip { get; set; }
+
+
+        public Accounting(DateTime date, AdminstrativeStaff adminstrativeStaff, Car car, Driver driver, int earnedMoney, Trip trip)
         {
             Date = date;
             AdminstrativeStaff = adminstrativeStaff;
             this.car = car;
             this.driver = driver;
             this.earnedMoney = earnedMoney;
+            this.trip = trip;
+        }
+
+        public Accounting()
+        {
         }
     }
 }
+

@@ -19,7 +19,7 @@ namespace Data
 
 
         public async Task Save(Car car)
-        {
+            {
             var query = "INTO carros" +
                         "(id, placa, modelo, color,  num_asientos)" +
                         "VALUES(@0, @1, @2, @3, @4)";
@@ -59,13 +59,13 @@ namespace Data
         protected override Car DefaultMap(IDataRecord record)
         {
             return new Car
-            {
-                Id = record.GetString(0),
-                LicensePlate = record.GetString(1),
-                Model = record.GetString(2),
-                Colour = record.GetString(3),
-                NumSeating = record.GetInt32(4)
-            };
+            {   
+                    Id = record.GetString(0),
+                    LicensePlate = record.GetString(1),
+                    Model = record.GetString(2),
+                    Colour = record.GetString(3),
+                    NumSeating = record.GetInt32(4)
+            }; 
         }
     }
 }
