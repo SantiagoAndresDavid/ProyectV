@@ -80,6 +80,13 @@ public class TipServicesTest
     }
 
     [Test]
+    public async Task TestThatVerifiesIfTTripNotFound()
+    {
+        TripServices tripServices = new TripServices(new FakeTripRespository());
+        Assert.ThrowsAsync<NotFoundException>(async () => await tripServices.GetTripById("1234"));
+    }
+
+    [Test]
     public async Task TestThatVerifiesIfTheTripIsDeleted()
     {
         Driver driver = new("santiago", "Andres", "David", 12324134, 4534534, "RUTA");
@@ -97,8 +104,13 @@ public class TipServicesTest
     {
         Driver driver = new("santiago", "Andres", "David", 12324134, 4534534, "RUTA");
         Car car = new Car("1234", "aprimal", "amarillo", "121-asda", 2);
-        Trip trip = new(Guid.NewGuid(), 2, driver, car);
+        Guid guid = Guid.NewGuid();
+        Trip trip = new(guid, 2, driver, car);
+        Trip tripModify = new(guid, 5, driver, car);
         TripServices tripServices = new(new FakeTripRespository());
+        await tripServices.SaveTrip(trip);
+        await tripServices.UpdateTrip(tripModify);
+        Assert.AreEqual(tripModify, await tripServices.GetTripById(tripModify.IdTrip.ToString()));
     }
 
     [Test]

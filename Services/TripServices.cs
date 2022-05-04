@@ -42,4 +42,9 @@ public class TripServices
     {
         return await _tripRepository.GetAll();
     }
+
+    public async Task UpdateTrip(Trip tripModify)
+    {
+        await _tripRepository.Update(tripModify);
+    }
 }
