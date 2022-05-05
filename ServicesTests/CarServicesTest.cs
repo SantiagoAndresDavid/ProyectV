@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +10,6 @@ using Services;
 
 namespace ServicesTests
 {
-
     public class FakeCarRepository : ICarRepository
     {
         private List<Car> Cars { get; }
@@ -51,18 +49,17 @@ namespace ServicesTests
             }
             catch (InvalidOperationException e)
             {
-                throw new NotFoundException("No se encontro el vehiculo",e);
+                throw new NotFoundException("No se encontro el vehiculo", e);
             }
         }
-        
-        
     }
+
     public class CarServicesTest
     {
         [Test]
         public async Task TestThatVerifiesIfTheCarIsSaved()
         {
-            Car car = new Car("1234","aprimal","amarillo","121-asda",2);
+            Car car = new Car("1234", "aprimal", "amarillo", "121-asda", 2);
             CarServices carServices = new(new FakeCarRepository());
             await carServices.SaveCar(car);
             Car carFound = await carServices.GetCarById(car.Id);
@@ -80,7 +77,7 @@ namespace ServicesTests
         [Test]
         public async Task TestThatVerifiesIfCarAlreadyExists()
         {
-            Car car = new Car("1234","aprimal","amarillo","121-asda",2);
+            Car car = new Car("1234", "aprimal", "amarillo", "121-asda", 2);
             CarServices carServices = new(new FakeCarRepository());
             await carServices.SaveCar(car);
             Assert.ThrowsAsync<AlreadyExistsException>(() => carServices.SaveCar(car));
@@ -90,7 +87,7 @@ namespace ServicesTests
         public async Task TestThatVerifiesIfTheCarIsDeleted()
         {
             CarServices carServices = new(new FakeCarRepository());
-            Car car = new Car("1234","aprimal","amarillo","121-asda",2);
+            Car car = new Car("1234", "aprimal", "amarillo", "121-asda", 2);
             await carServices.SaveCar(car);
             await carServices.DeleteCar(car);
             Assert.ThrowsAsync<NotFoundException>(async () => await carServices.GetCarById("121-asda"));
@@ -100,14 +97,24 @@ namespace ServicesTests
         public async Task TestThatVerifiesIfTheCarIsUpdated()
         {
             CarServices carServices = new(new FakeCarRepository());
+            Car carModify = new Car("9999", "asasdasd", "azul", "121-gdfg", 4);
+            Car car = new Car("1234", "aprimal", "amarillo", "121-gdfg", 2);
+            await carServices.SaveCar(car);
+             await carServices.UpdateCar(carModify);
+            Assert.AreEqual(carModify, await carServices.GetCarById(carModify.Id));
+        }
+
+
+        [Test]
+        public async Task TestThatVerifiesIfTheCarIsReturned()
+        {
+            CarServices carServices = new(new FakeCarRepository());
             Car car = new Car("1234", "aprimal", "amarillo", "121-asda", 2);
             Car car2 = new Car("9999", "asasdasd", "azul", "121-gdfg", 4);
             await carServices.SaveCar(car);
             await carServices.SaveCar(car2);
-            List<Car> carTest = new []{car,car2}.ToList();
-            Assert.AreEqual(carTest,await carServices.GetAll());
+            List<Car> carTest = new[] { car, car2 }.ToList();
+            Assert.AreEqual(carTest, await carServices.GetAll());
         }
-        
-        
     }
 }
