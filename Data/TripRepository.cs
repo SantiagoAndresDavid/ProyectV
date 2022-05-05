@@ -36,7 +36,7 @@ public class TripRepository : Repository<Trip>, ITripRepository
     public async Task Delete(Trip trip)
     {
         var query = "FROM viajes WHERRE id = @0 ";
-        await Delete(query,trip.IdTrip);
+        await Delete(query,trip);
     }
 
     public async Task Update(Trip trip)

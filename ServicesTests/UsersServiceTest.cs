@@ -21,7 +21,7 @@ namespace ServicesTests
 
         public async Task Save(User user)
         {
-             Users.Add(user);
+            Users.Add(user);
         }
 
         public async Task Delete(User user)
@@ -100,7 +100,7 @@ namespace ServicesTests
             User userModify = new("Pipe", "pipoELpropiokubernetes@gmail.com", "1234", "devops");
             await userService.SaveUser(user);
             await userService.UpdateUser(userModify);
-            Assert.AreEqual(userModify,await userService.GetUserByName("Pipe"));
+            Assert.AreEqual(userModify, await userService.GetUserByName("Pipe"));
         }
 
         [Test]
@@ -111,9 +111,8 @@ namespace ServicesTests
             User user2 = new("carlos", "pipoELpropiokubernetes@gmail.com", "1234", "devops");
             await userService.SaveUser(user);
             await userService.SaveUser(user2);
-            List<User> usersTest = new[]{user,user2}.ToList();
-            Assert.AreEqual(usersTest,await userService.GetAll());
+            List<User> usersTest = new[] { user, user2 }.ToList();
+            Assert.AreEqual(usersTest, await userService.GetAll());
         }
-        
     }
-}   
+}

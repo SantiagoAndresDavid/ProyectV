@@ -2,25 +2,29 @@
 
 namespace Entity
 {
-    public class TecnoMechanics
+    public class TechnoMechanics
     {
-        public DateTime Date { get; }
-        public string BodyworkCondition { get; }
-        public string BrakeCondition { get; }
-        public string DamperCondition { get; }
-        public string WeelsCondition { get; }
-        public Car car { get; }
+        public Guid Id { get; set; }
+        public DateTime Date { get; set; }
+        public string BodyworkCondition { get; set; }
+        public string BrakeCondition { get; set; }
+        public string DamperCondition { get; set; }
+        public string WeelsCondition { get; set; }
+        public Car Car { get; set; }
 
-
-        public TecnoMechanics(DateTime date, string bodyworkCondition, string brakeCondition, string damperCondition,
-            string weelsCondition, Car car)
+        public TechnoMechanics()
         {
+        }
+
+        public TechnoMechanics(Guid id, DateTime date, string bodyworkCondition, string brakeCondition, string damperCondition, string weelsCondition, Car car)
+        {
+            Id = id;
             Date = date;
             BodyworkCondition = bodyworkCondition;
             BrakeCondition = brakeCondition;
             DamperCondition = damperCondition;
             WeelsCondition = weelsCondition;
-            this.car = car;
+            Car = car;
         }
     }
 }
