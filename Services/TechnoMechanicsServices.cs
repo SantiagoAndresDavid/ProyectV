@@ -1,5 +1,6 @@
 ﻿using Data.Interfaces;
 using Entity;
+using Entity.Exceptions;
 
 namespace Services;
 
@@ -14,28 +15,38 @@ public class TechnoMechanicsServices : ITechnoMechanicsRepository
     }
 
 
-    public Task Save(TechnoMechanics entity)
+    public async Task Save(TechnoMechanics technoMechanics)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await GetTechnoMechanicsById(technoMechanics.Id.ToString());
+        }
+        catch
+        {
+            await _technoMechanicsRepository.Save(technoMechanics);
+            return;
+        }
+
+        throw new AlreadyExistsException("ya existe esta tecnomecanica.");
     }
 
-    public Task Delete(TechnoMechanics entity)
+    public async Task Delete(TechnoMechanics technoMechanics)
     {
-        throw new NotImplementedException();
+        await _technoMechanicsRepository.Delete(technoMechanics);
     }
 
-    public Task Update(TechnoMechanics entity)
+    public async Task Update(TechnoMechanics technoMechanics)
     {
-        throw new NotImplementedException();
+        await _technoMechanicsRepository.Update(technoMechanics);
     }
 
-    public Task<List<TechnoMechanics>> GetAll()
+    public async Task<List<TechnoMechanics>> GetAll()
     {
-        throw new NotImplementedException();
+        return await _technoMechanicsRepository.GetAll();
     }
 
-    public Task<TechnoMechanics> GetTechnoMechanicsById(string id)
+    public async Task<TechnoMechanics> GetTechnoMechanicsById(string id)
     {
-        throw new NotImplementedException();
+        return await _technoMechanicsRepository.GetTechnoMechanicsById(id);
     }
 } 

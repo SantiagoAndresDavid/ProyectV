@@ -95,8 +95,7 @@ public class TipServicesTest
         TripServices tripServices = new(new FakeTripRespository());
         await tripServices.SaveTrip(trip);
         await tripServices.DeleteTrip(trip);
-        string id = trip.IdTrip.ToString();
-        Assert.ThrowsAsync<NotFoundException>(async () => await tripServices.GetTripById(id));
+        Assert.ThrowsAsync<NotFoundException>(async () => await tripServices.GetTripById(trip.IdTrip.ToString()));
     }
 
     [Test]

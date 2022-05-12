@@ -3,9 +3,9 @@ using Entity;
 using Entity.Exceptions;
 
 namespace Services;
-    
+
 public class TripServices
-    {
+{
     private readonly ITripRepository _tripRepository;
 
     public TripServices(ITripRepository tripRepository)
@@ -30,7 +30,7 @@ public class TripServices
 
     public async Task<Trip> GetTripById(string id)
     {
-        return await _tripRepository.GetTripbyId(id);    
+        return await _tripRepository.GetTripbyId(id);
     }
 
     public async Task DeleteTrip(Trip trip)

@@ -1,4 +1,16 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=10878eeb_002D1caa_002D4349_002Da187_002D66a3ddf1b7ac/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;ServicesTests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="D:\Universidad\BaseDeDatos\ProyectV\ServicesTests" Presentation="&amp;lt;ServicesTests&amp;gt;" /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=887d6ad8_002D9a4a_002D45d7_002D9876_002D9cca4b6a361f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestThatVerifiesIfTheTechnoMechanicsIsUpdated" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::06C87559-A6FC-442F-9446-BB52319EDE1C::net6.0::ServicesTests.TechnoMechanicsTest.TestThatVerifiesIfTheTechnoMechanicsIsUpdated&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=eaad20e9_002De22a_002D455c_002Da954_002D5604d080d374/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestThatVerifiesIfTheTechnoMechanicsIsUpdated #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::06C87559-A6FC-442F-9446-BB52319EDE1C::net6.0::ServicesTests.TechnoMechanicsTest.TestThatVerifiesIfTheTechnoMechanicsIsUpdated&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
